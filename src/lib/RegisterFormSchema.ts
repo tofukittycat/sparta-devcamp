@@ -31,7 +31,11 @@ export const registerFormSchema = z
       .max(11, {
         message: '11자리(ex. 01012345678) 형식으로 입력해주세요.',
       })
-      .nonempty('번호를 입력해주세요.'),
+      .nonempty('번호를 입력해주세요.')
+      .refine(
+        (value) => phoneRegex.test(value),
+        '비밀번호는 최소 6자리 이상, 영문, 숫자, 특수문자를 포함해야 합니다.'
+      ),
     role: z.string().min(2, { message: '역할을 선택해주세요.' }),
     password: z
       .string()
